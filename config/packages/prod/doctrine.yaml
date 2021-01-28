@@ -1,0 +1,49 @@
+doctrine:
+    orm:
+        auto_generate_proxy_classes: false
+        metadata_cache_driver:
+            type: pool
+            pool: doctrine.system_cache_pool
+        query_cache_driver:
+            type: pool
+            pool: doctrine.system_cache_pool
+        result_cache_driver:
+            type: pool
+            pool: doctrine.result_cache_pool
+        mapping_types:
+            enum: string
+    dbal:
+        dbname: jarditou
+        host: localhost
+        port: 3306
+        user: root
+        password:
+        driver: pdo_mysql
+        # if the url option is specified, it will override the above config
+        url: mysql://root:@127.0.0.1:3306/jarditou
+        # the DBAL driverClass option
+        driver_class: App\DBAL\MyDatabaseDriver
+        # the DBAL driverOptions option
+        options:
+            foo: bar
+        path: '%kernel.project_dir%/var/data/data.sqlite'
+        memory: true
+        unix_socket: /tmp/mysql.sock
+        # the DBAL wrapperClass option
+        wrapper_class: App\DBAL\MyConnectionWrapper
+        charset: UTF8
+        logging: '%kernel.debug%'
+        platform_service: App\DBAL\MyDatabasePlatformService
+        server_version: '5.7'
+        mapping_types:
+            enum: string
+        types:
+            custom: App\DBAL\MyCustomType
+framework:
+    cache:
+        pools:
+            doctrine.result_cache_pool:
+                adapter: cache.app
+            doctrine.system_cache_pool:
+                adapter: cache.system
+
