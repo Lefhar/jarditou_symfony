@@ -1,17 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProduitsController!{% endblock %}
+{% block title %}Nos produits!{% endblock %}
 
 {% block body %}
 
 
-<div class="container">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="container-fluid">
+    <article>
+        <div class="table-responsive">
+            <table class="table table-sm table-striped table-striped-warning table-bordered"><!--début du tableau-->
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/racine/www/jarditou/src/Controller/ProduitsController.php'|file_link(0) }}">src/Controller/ProduitsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/racine/www/jarditou/templates/produits/index.html.twig'|file_link(0) }}">templates/produits/index.html.twig</a></code></li>
-    </ul>
+                <thead class="thead-light">
+                <tr>
+                    <th  scope="col">Photos</th><!--titre colonne 1-->
+                    <th scope="col" >ID</th><!--colonne 2-->
+                    <th scope="col">Référence</th><!--titre colonne 3-->
+                    <th scope="col">Libellé</th><!--titre colonne 4-->
+                    <th scope="col">Prix</th><!--titre colonne 5-->
+                    <th scope="col">Stock</th><!--titre colonne 6-->
+                    <th scope="col">Couleur</th><!--titre colonne 7-->
+                    <th scope="col">Ajout</th><!--titre colonne 8-->
+                    <th scope="col">Modif</th><!--titre colonne 9-->
+                    <th scope="col">Bloqué</th><!--titre colonne 9-->
+                    <th scope="col">Panier <span class="badge badge-info">2 Produit(s)</span>
+                        <a href="panier/afficherPanier">Voir</a></th><!--titre colonne 9-->
+                </tr>
+                </thead>
+                <tbody>
+                {% for produit in produits %}
+
+                <tr  class="table-striped-warning">
+                    <td ><img width="100" src="assets/images/{{ produit.proId }}.{{ produit.proPhoto }}" alt=" {{ produit.proLibelle }}"  title=" {{ produit.proLibelle }}" class="img-fluid" /></td>
+                    <td>{{ produit.proId }}</td>
+                    <td>{{ produit.proref }}</td>
+                    <td><a href="produits/detail/{{ produit.proId }}" title="détail" alt="détail">{{ produit.proLibelle }}</a></td>
+                    <td>{{ produit.proPrix }}&euro;</td>
+                    <td>{{ produit.proStock }}</td>
+                    <td>{{ produit.proCouleur }}</td>
+                    <td>{{ produit.proDAjout | date('d-m-Y') }}</td>
+                    <td>{{ produit.proDModif  | date('d-m-Y H:i:s') }}</td>
+                    {% if produit.proBloque == 1 %}
+                        <td><span class="bloque">bloqué</span></td>
+                        {% else %}
+                            <td></td>
+                    {% endif %}
+                    <td></td>
+
+                </tr>
+    {% endfor %}
+                </tbody>
+            </table> <!--fin du tableau-->
+
+        </div><!--fermeture de la div table responsive-->
+        </article>
 </div>
 {% endblock %}
